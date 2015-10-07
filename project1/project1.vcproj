@@ -171,6 +171,30 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\bdd_node.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\bdd_tables.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Bool_expr.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Bool_expr_parser.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\main.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\operation.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\project1.cpp"
 				>
 			</File>
@@ -180,6 +204,34 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath=".\bdd_node.h"
+				>
+			</File>
+			<File
+				RelativePath=".\bdd_tables.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Bool_expr.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Bool_expr_parser.h"
+				>
+			</File>
+			<File
+				RelativePath=".\operation.h"
+				>
+			</File>
+			<File
+				RelativePath=".\project1.h"
+				>
+			</File>
+			<File
+				RelativePath=".\smart_pointer.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="资源文件"
