@@ -54,16 +54,20 @@ struct unique_table_key
 // tables.
 //
 // computed_table keeps track of all of the results of calling apply on two
-// bdd_nodes.  This way, you can check to see if a result already exists by
-// calling find_in_computed_table.  When a result is found, you should add
-// it to the computed table by calling insert_in_computed_table
+// bdd_nodes.  
+/****************************************************************************************/ // computed_table
+// This way, you can check to see if a result already exists by
+// calling ***find_in_computed_table***.  When a result is found, you should add
+// it to the computed table by calling ***insert_in_computed_table***
+/****************************************************************************************/
 // 
+/****************************************************************************************/ // unique_table
 // unique_table keeps track of the nodes that make up the new BDD that will
 // be the result of the apply function.  once you have a result for a var
 // and two Bdd_nodes (one from the first BDD, another for the 2nd BDD), 
 // you can check to see if this result already exists by calling
-// find_in_unique_table.  If it doesn't exist, you can create the new node
-// and add it the the unique table all by calling create_and_add_to_unique_table
+// ***find_in_unique_table***.  If it doesn't exist, you can create the new node
+// and add it the the unique table all by calling ***create_and_add_to_unique_table***
 class bdd_tables
 {
 public:

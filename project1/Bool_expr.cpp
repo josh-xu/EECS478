@@ -38,7 +38,7 @@ static bool needsQuotes(const std::string &s)
 
 
 template <class T>
-BoolExpr<T>::BoolExpr(const T &initValue /*= T()*/)
+BoolExpr<T>::BoolExpr(const T &initValue /*= T()*/)      //VALUE
   : type(VALUE),
     value(initValue),
     left(NULL),
@@ -48,7 +48,7 @@ BoolExpr<T>::BoolExpr(const T &initValue /*= T()*/)
 
 
 template <class T>
-BoolExpr<T>::BoolExpr(Type t, BoolExpr *l, BoolExpr *r)
+BoolExpr<T>::BoolExpr(Type t, BoolExpr *l, BoolExpr *r)  //AND OR NOT (Not left  = NULL)
   : type(t),
     value(),
     left(l),
@@ -296,7 +296,7 @@ BoolExpr<T>::print(std::ostream &out) const
 		out << '!';
 		if (paren)
 		    out << '(';
-		right->print(out);
+		right->print(out);                                               //µÝ¹éµ÷ÓÃ
 		if (paren)
 		    out << ')';
 	    }

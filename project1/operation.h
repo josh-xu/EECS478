@@ -9,8 +9,8 @@
 // by the apply function one two bdd_nodes.  Operation manages boolean operations.
 // An Operation object allows you to specify what operation you want to apply before
 // calling it with two Bdd_nodes.  In general, the operations will return a pointer
-// to a Bdd_node if the operation was terminal, or 0 if not (the operation will only
-// work if at least one of the nodes is terminal)
+// to a Bdd_node **if the operation was terminal**, or 0 if not (the operation will only
+// ****work if at least one of the nodes is terminal****)
 //
 // Currently, AND and OR are supported, but you can define more if you want, by adding
 // a prototype to this definition, providing the function definition in operation.cpp,

@@ -86,7 +86,8 @@ bdd_ptr bdd_tables::create_and_add_to_unique_table(char var, bdd_ptr left, bdd_p
   new_node->neg_cf = left;
   new_node->pos_cf = right;
 
-  unique_table[unique_table_key(var, left->get_id(), right->get_id())] = new_node;
+  unique_table[unique_table_key(var, left->get_id(), right->get_id())] = new_node;     //typedef std::map<unique_table_key, bdd_ptr> unique_table_t; unique_table_t unique_table;
+  // 用var来做key，用id来唯一标识node！
 
 
   return new_node;

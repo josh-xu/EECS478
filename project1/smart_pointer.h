@@ -44,17 +44,17 @@ public:
 		{}
 	Reference_Counted_Object (const Reference_Counted_Object&) : ref_count(0)
 		{}
-	virtual ~Reference_Counted_Object()
+	virtual ~Reference_Counted_Object()                                           //????????????????????? -> 虚函数
 		{}
 	void increment_ref_count() const
 		{++ref_count;}
 	void decrement_ref_count() const
-		// suicidal - destroys this object
+		// suicidal - destroys this object                                           //????????????????????? -> decrement后检查ref_count，如果可以则自动删除
 		{if (--ref_count == 0) delete this;}
 	unsigned int get_ref_count() const
 		{return ref_count;}
 private:
-	mutable unsigned int ref_count;	
+	mutable unsigned int ref_count;                                           //????????????????????? -> mutable
 };
 
 /* Template for smart_pointer class
@@ -62,21 +62,21 @@ overloads *, ->, and =, provides conversion to built-in type.
 Simply increments and decrements the reference count when smart_pointers
 are initialized, copied, assigned, and destructed.
 */
-template <class T> class smart_pointer {
+template <class T> class smart_pointer {                                           //!!!!!!!!!!!!!!!!!!!!! -> 类模板 -> T = bdd_node
 public:
 	// constructor with pointer argument - copy and increment_ref_count count
-	smart_pointer(T* arg = 0) : ptr(arg)
-		{if (ptr) ptr->increment_ref_count();}
-	// templated constructor to support implicit conversions to other smart_pointer type
+	smart_pointer(T* arg = 0) : ptr(arg)                                           //构造
+		{if (ptr) ptr->increment_ref_count();}                                           //????????????????????? -> 调用模板的时候，T是bdd_node，有Reference_Counted_Object类声明，所以可以用increment_ref_count()函数 -> if(ptr)啥意思？指针不为空？非terminal？
+	// templated constructor to support implicit conversions to other smart_pointer type                                           //????????????????????? -> to other type??? 可以不管？
 	template <class U> smart_pointer(const smart_pointer<U> other) : ptr(other.get_raw_ptr()) 
 		{if (ptr) ptr->increment_ref_count();}
 	// copy constructor - copy and increment_ref_count
-	smart_pointer(const smart_pointer<T>& arg): ptr(arg) 
+	smart_pointer(const smart_pointer<T>& arg): ptr(arg)                                            //复制构造
 		{if (ptr) ptr->increment_ref_count();}
 	// destructor - decrement ref count
-	~smart_pointer()
+	~smart_pointer()                                           //析构
 		{if (ptr) ptr->decrement_ref_count();}
-	// assignment - decrement lhs, increment rhs
+	// assignment - decrement lhs, increment rhs                                           //assign to another object
 	const smart_pointer<T>& operator= (const smart_pointer<T>& rhs)
 		{
 			if (ptr != rhs.ptr) {						//check for aliasing
@@ -93,7 +93,7 @@ public:
 	T& operator* () {return *ptr;}
 	T* operator-> () const {return ptr;}
 private:
-	T* ptr;
+	T* ptr;                                           //!!!!!!!!!!!!!!!!!!!!! -> ptr定义！！！->T类型指针 -> bdd_node类型指针
 };
 
 #endif

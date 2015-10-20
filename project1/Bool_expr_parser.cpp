@@ -42,7 +42,7 @@ BoolExpr<string>* BoolExprParser::parse(const std::string &expr) throw(Error)
   
   auto_ptr< BoolExpr<string> > root(parseExpr());
   if (!atEnd()) throw Error(curIndex, Error::GARBAGE_AT_END);
-  return root.release();
+  return root.release();                                                             //main()函数里parser.parse(line)的返回值。。。是一个BoolExpr的指针；既然取名叫root，那应该就是最上面的node了吧。。。
 }
 
 BoolExpr<string>* BoolExprParser::parseExpr() throw(Error)

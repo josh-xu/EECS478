@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
   
   {
   // get the initial boolean expression
-  bdd_ptr expr1 = build_bdd_from_input(cin);
+  bdd_ptr expr1 = build_bdd_from_input(cin);                                        //!!!!!!!!!!!!!!!!!!!!!!!!! -> build_bdd_from_input(cin)调用！！！
   if (expr1 == NULL)
   {
     cout << "function apply not implemented." << endl;
@@ -241,7 +241,7 @@ char get_command(string prompt,  // Prompt that is printed to screen asking for 
 // build_bdd_from_input prompts the user for an expression until a valid
 // one is entered.  the GNU boolstuff package is used to parse the expression.
 // the BoolExpr is then passed to bdd_from_expression, and the result returned
-bdd_ptr build_bdd_from_input(istream& is)
+bdd_ptr build_bdd_from_input(istream& is)                                        //!!!!!!!!!!!!!!!!!!!!!!!!! -> bdd_ptr build_bdd_from_input(istream& is)定义！！！
 {
   BoolExprParser parser;
   string line;
@@ -256,7 +256,7 @@ bdd_ptr build_bdd_from_input(istream& is)
     {
       try
       {
-        expr = parser.parse(line);
+        expr = parser.parse(line);                                        //!!!!!!!!!!!!!!!!!!!!!!!!! -> 得到expr -> parse line得到！！！
         //cout << "Original expression     : " << flush;
         //assert(expr != NULL);
         //expr->print(cout);
@@ -277,7 +277,7 @@ bdd_ptr build_bdd_from_input(istream& is)
   }while (error);
   
   // turn expr into a bdd
-  bdd_ptr ret_val = bdd_from_expr(expr);
+  bdd_ptr ret_val = bdd_from_expr(expr);                                        //!!!!!!!!!!!!!!!!!!!!!!!!! -> bdd_from_expr(expr)调用！！！->得到BDD的root？！
   
   delete expr;
   
@@ -287,7 +287,12 @@ bdd_ptr build_bdd_from_input(istream& is)
 // bdd_from_expr takes a boolean expression in the the GNU boolstuff BoolExpr
 // format and turns it into a bdd by recursively navigating the expression and
 // using apply.
-bdd_ptr bdd_from_expr(BoolExpr<string> *expr)
+
+/*****************************************************************************************************************************************************************************************/
+/*****************************************************************************************************************************************************************************************/
+/*****************************************************************************************************************************************************************************************/
+
+bdd_ptr bdd_from_expr(BoolExpr<string> *expr)                                        //！！！！！！！！！！！！！！！ -> bdd_ptr bdd_from_expr(BoolExpr<string> *expr)定义！！！
 {
   // objects needed for apply
   operation dop;
@@ -295,7 +300,7 @@ bdd_ptr bdd_from_expr(BoolExpr<string> *expr)
 
   switch (expr->getType())
   {
-    case BoolExpr<string>::VALUE:
+    case BoolExpr<string>::VALUE:                                                                              //root是VALUE？？？ //var直接就是表达式的字符形式！
     {
       // Boolstuff accepts strings as variables, we'll just use the first char
       // as the var and disregard the rest
@@ -304,30 +309,30 @@ bdd_ptr bdd_from_expr(BoolExpr<string> *expr)
       
       if (var == '1') return bdd_node::one;
       
-      bdd_ptr ret = tables.find_in_unique_table(var, bdd_node::zero, bdd_node::one);
-      if (ret == 0) ret =  tables.create_and_add_to_unique_table(var, bdd_node::zero, bdd_node::one);
+      bdd_ptr ret = tables.find_in_unique_table(var, bdd_node::zero, bdd_node::one);                           //如果单literal。即单字母（即无&|!运算的）变量已经建好，则用在Unique Table里建好的
+      if (ret == 0) ret = tables.create_and_add_to_unique_table(var, bdd_node::zero, bdd_node::one);           //如果没有建好ret=NULL，则建一个（因是单字母，所以0 child是zero，1 child是one！！！）
      
-      ret->probability = (bdd_node::zero->probability + bdd_node::one->probability)/2;
+      ret->probability = (bdd_node::zero->probability + bdd_node::one->probability)/2;   // = 0.5
 
-      return ret;
-      break;
+      return ret; // base case -> Recursion!!!
+      break; // 为何还要break？？？
     }
-    case BoolExpr<string>::NOT:
+    case BoolExpr<string>::NOT:                           //root是NOT？？？只有Right！
     {
-      bdd_ptr ret = bdd_from_expr(expr->getRight());
+      bdd_ptr ret = bdd_from_expr(expr->getRight());                      /**************************************递归调用！！！******************************************************/ //最后的base case一定是VALUE。。。
       
       // f XOR 1 = f'
-      return apply(ret, bdd_node::one, "xor");
+      return apply(ret, bdd_node::one, "xor");                            /****************************/ //！！！！！！！！！！！！！！要用到apply！！！
       break;
     }
-    case BoolExpr<string>::AND:
+    case BoolExpr<string>::AND:                           //root是AND或OR？？？有Right和Left！
     case BoolExpr<string>::OR:
     {
       if ( expr->getType() == BoolExpr<string>::AND ) dop.set_operation("and");
       else                                            dop.set_operation("or");
-      bdd_ptr lhs = bdd_from_expr(expr->getLeft());
-      bdd_ptr rhs = bdd_from_expr(expr->getRight());
-      bdd_ptr ret_node = apply(lhs, rhs, dop);
+      bdd_ptr lhs = bdd_from_expr(expr->getLeft());                      /**************************************递归调用！！！******************************************************/ //最后的base case一定是VALUE。。。
+      bdd_ptr rhs = bdd_from_expr(expr->getRight());                     /**************************************递归调用！！！******************************************************/ //最后的base case一定是VALUE。。。
+      bdd_ptr ret_node = apply(lhs, rhs, dop);                           /****************************/ //！！！！！！！！！！！！！！要用到apply！！！
       return ret_node;
       break;
     }

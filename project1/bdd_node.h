@@ -13,7 +13,7 @@
  */
 
 #include <iostream>
-#include <set>
+#include <set>                                           //?????????????????????
 
 #include "smart_pointer.h"
 
@@ -32,7 +32,7 @@ typedef smart_pointer<bdd_node> bdd_ptr;
 //
 // Two static nodes are declared that are the two unique terminal nodes, 
 // one and zero
-class bdd_node : public Reference_Counted_Object
+class bdd_node : public Reference_Counted_Object                                           //????????????????????? -> 为了使用smart_pointer？多了ref_count之类的隐含变量？
 {
 public:
 
@@ -40,7 +40,7 @@ public:
 
   // the bdd_ctr used to give each created node its unique id
   static int id_ctr;
-  static std::set<int> free_ids;
+  static std::set<int> free_ids;                                           //????????????????????? 静态，所有类对象共享
 
   // the terminal nodes used by every BDD
   static bdd_ptr one;
@@ -50,7 +50,7 @@ public:
   int get_id() { return id; }
 
   // only the terminal nodes (one and zero) will have null children
-  bool is_terminal() { return (neg_cf == 0); }
+  bool is_terminal() { return (neg_cf == 0); }                                           //????????????????????? -> pos_cf呢？？？ -> 0 = NULL？？？ -> 不需要pos？正常的node都会有两个，如果其一没有就一定是terminal？
 
   bool is_zero() {return (this == zero); }
   bool is_one() {return (this == one); }
@@ -79,7 +79,7 @@ public:
   
 
 
-  friend class bdd_tables;
+  friend class bdd_tables;                                           //????????????????????? 友元类，其中所有的函数均可以对这个bdd_node类的private成分进行访问
 
 private:
   // can only be created by Bdd_tables
@@ -93,7 +93,7 @@ private:
 
 
 // allows a Bdd to be fed into a stream, i.e cout << bdd1
-std::ostream& operator<< (std::ostream& os, bdd_ptr bnode);
+std::ostream& operator<< (std::ostream& os, bdd_ptr bnode);                                           //?????????????????????
 
 // returns the next var to be split on (used in Apply).  Lower value vars
 // have precedence

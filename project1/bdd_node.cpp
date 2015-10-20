@@ -21,8 +21,8 @@
 using namespace std;
 
 // definition of inital id
-int bdd_node::id_ctr = 0;
-set<int> bdd_node::free_ids;
+int bdd_node::id_ctr = 0;                                           //????????????????????? -> id_ctr -> count for the whole # of nodes -> ctr = counter
+set<int> bdd_node::free_ids;                                           //?????????????????????
 
 // default = print out ids
 bool bdd_node::print_verbose = true;
@@ -40,11 +40,11 @@ bdd_node::bdd_node() : neg_cf(0), pos_cf(0)
     id_ctr = 100;
     for (int i = 0; i < bdd_node::id_ctr; ++i)
     {
-      bdd_node::free_ids.insert(i);
+      bdd_node::free_ids.insert(i);                                           //?????????????????????
     }
   }
   
-  if (free_ids.empty())
+  if (free_ids.empty())                                           //????????????????????? -> 按照实际情况，为即将创建的node分配空间，首先分配到100，再分配到200，再分配到400……
   {
     for (int i = id_ctr; i < 2*id_ctr; i++)
     {
@@ -53,14 +53,14 @@ bdd_node::bdd_node() : neg_cf(0), pos_cf(0)
     id_ctr = 2*id_ctr;
   }
   id = *(free_ids.begin());
-  free_ids.erase(id);
+  free_ids.erase(id);                                           //!!!!!!!!!!!!!!!!!!!!! -> id_ctr代表已经总共分配的node空间大小
 }
 
 
 bdd_node::~bdd_node()
 {
   // free up this node's id
-  free_ids.insert(get_id());
+  free_ids.insert(get_id());                                           //!!!!!!!!!!!!!!!!!!!!! -> node删除了不用了，他的编号可以给其他利用
 }
 
 
@@ -72,14 +72,14 @@ ostream& operator<< (ostream& os, bdd_ptr bnode)
 
 
 
-// output the contents of the BDD made up of this bdd_node and 
+// output the cont ents of the BDD made up of this bdd_node and 
 // its children by recursively visiting all of the nodes and outputting
 // their contents.  This is essentially a pre-order visitiation with
 // some fancy formatting to make the output more readable
-// the convention is that nodes down and to the right are the postive 
-// cofactor, and nodes straight down are the negative cofactor
+// the convention is that ***nodes down and to the right are the postive 
+// cofactor***, and nodes ***straight down are the negative cofactor***
 // verbose = true means print out each non-terminal node's id too
-void bdd_node::print(ostream& os)
+void bdd_node::print(ostream& os)                                           //?????????????????????
 {
   static string spacing("");
   
@@ -137,18 +137,20 @@ bool bdd_node::has_var(char thevar)
   {
     return true;
   }
-  return (pos_cf->has_var(thevar) || neg_cf->has_var(thevar));
+  return (pos_cf->has_var(thevar) || neg_cf->has_var(thevar));                                           //?????????????????????
 }
 
 // the Apply function, given two BDDs (at least one of them must be non-terminal), 
 // needs to be able to choose a next var to split on.  Vars that are lower
-// alphabetically have precedance (i.e d is prefered over f etc.)
+/*****************************************************************************************************************************************************************************************/
+// alphabetically have precedance (i.e d is prefered over f etc.)                                           // a->b->c->d …… //顺序是定死的！！！
+/*****************************************************************************************************************************************************************************************/
 char find_next_var(bdd_ptr bdd1, bdd_ptr bdd2)
 {
   // both bdd's aren't terminal, return lower alphabetically
   if (!bdd1->is_terminal() && !bdd2->is_terminal())
   {
-    return (bdd1->var < bdd2->var) ? bdd1->var : bdd2->var;
+    return (bdd1->var < bdd2->var) ? bdd1->var : bdd2->var;                                           //????????????????????? -> 选字母序数较小的？
   }
   
   // only bdd1 terminal
@@ -156,11 +158,11 @@ char find_next_var(bdd_ptr bdd1, bdd_ptr bdd2)
   {
     return bdd1->var;
   }
-  else
+  else                                           // bdd1 is terminal
   {
     // this assert will alert you if this function is called
     // incorrectly (on two terminal nodes)
-    assert (!bdd2->is_terminal());
+    assert (!bdd2->is_terminal());                                           //????????????????????? -> false了会assert？
     return bdd2->var;
   }
 }

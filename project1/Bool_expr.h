@@ -36,6 +36,10 @@ class BoolExpr
 public:
     enum Type { VALUE, AND, OR, NOT };
 
+/**************************************************************ºÃºÃ¿´×¢ÊÍ£¡£¡£¡***********************************************************************************************************/
+/*****************************************************************************************************************************************************************************************/
+/*****************************************************************************************************************************************************************************************/
+
     BoolExpr(const T &initValue = T());
     /*
 	Creates a VALUE node with the given initial value.
@@ -175,7 +179,7 @@ public:
 	    dnfRoot->getDNFTermRoots(inserter(termRoots, termRoots.end()));
     */
 
-    void getTreeVariables(std::set<T> &positives, std::set<T> &negatives) const;
+    void getTreeVariables(std::set<T> &positives, std::set<T> &negatives) const;                    //??????????????????????????????????????
     /*
 	Stores in 'positives' the T values of the nodes that are used
 	positively in the tree rooted at this node.
