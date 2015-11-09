@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="project2">
+</Property><Property Name="Solution File" Value="D:\UMich\EECS478_Win\project2\project2.sln">
+</Property><Property Name="User Options File" Value="D:\UMich\EECS478_Win\project2\project2.suo">
+</Property><Property Name="Date" Value="2015年11月8日">
+</Property><Property Name="Time" Value="21:43">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="project2.sln" Description="File successfully backed up as D:\UMich\EECS478_Win\project2\project2.sln.old">
+</Event><Event ErrorLevel="0" Project="" Source="project2.suo" Description="File successfully backed up as D:\UMich\EECS478_Win\project2\project2.suo.old">
+</Event><Event ErrorLevel="0" Project="project2" Source="project2.vcproj" Description="Converting project file 'D:\UMich\EECS478_Win\project2\project2.vcproj'.">
+</Event><Event ErrorLevel="1" Project="project2" Source="project2.vcproj" Description="VCWebServiceProxyGeneratorTool is no longer supported. The tool has been removed from your project settings.">
+</Event><Event ErrorLevel="0" Project="project2" Source="project2.vcproj" Description="Done converting to new project file 'D:\UMich\EECS478_Win\project2\project2.vcxproj'.">
+</Event><Event ErrorLevel="3" Project="project2" Source="project2.vcproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="project2.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="project2.sln" Description="Converted">
+</Event></UpgradeLog>
