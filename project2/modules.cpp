@@ -90,7 +90,7 @@ int Circuit::createADDModule(const string &input1, const string &input2, const s
 	else name = cout + "[" + sstr.str() + "]"; // cout[i]
     Node* cout_i = findNode(name);
 
-	createMAJORITY3Node(a_i, b_i, cin_i, cout_i);
+	//createMAJORITY3Node(a_i, b_i, cin_i, cout_i);
 
 	if(i == 15) {}
 	else
